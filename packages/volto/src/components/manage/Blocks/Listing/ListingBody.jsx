@@ -73,7 +73,7 @@ const ListingBody = withQuerystringResults((props) => {
 
   const HeadlineTag = data.headlineTag || 'h2';
 
-  if (variation.id === 'event_card') {
+  if (variation?.id === 'event_card') {
     const { rrulestr } = rrule;
 
     const query = props.data.query;
