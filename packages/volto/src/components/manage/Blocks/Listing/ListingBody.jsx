@@ -86,18 +86,16 @@ const ListingBody = withQuerystringResults((props) => {
       const rule = recurrence ? rrulestr(recurrence, { unfold: true }) : null;
 
       const daterange = query?.reduce((acc, { o, v }) => o === "plone.app.querystring.operation.date.between" ? v : acc, undefined);
-      let count = rule?.options.count;
-      let upcoming: Date | undefined = rule?.after(today);
+      let upcoming = rule?.after(today);
 
       if (daterange && (rule !== null)) {
         const m0 = new Date(daterange[0]);
         const m1 = new Date(daterange[1]);
         const nextDate = rule.after(m0);
-        const range: Date[] = rule.between(m0, m1);
-        upcoming = range.find((d: Date) => d.getTime() === nextDate.getTime()) ?? upcoming;
-        count = range.length;
+        const range = rule.between(m0, m1);
+        upcoming = range.find((d) => d.getTime() === nextDate.getTime()) ?? upcoming;
       };
-      listingItems[index] = { ...item, upcoming, count };
+      listingItems[index] = { ...item, upcoming };
     });
 
     if (sort_on === 'start') {
