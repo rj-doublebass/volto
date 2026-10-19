@@ -34,6 +34,8 @@ export const datesForDisplay = (start, end, moment) => {
   return {
     sameDay,
     sameTime,
+    mStart,
+    mEnd,
     startDate: mStart.format('ll'),
     startTime: mStart.format('LT'),
     endDate: mEnd.format('ll'),
@@ -161,7 +163,7 @@ export const Recurrence_ = ({
     return {
       ...date,
       className: cx({
-        'past-date': !date.sameDay && (new Date(date.startDate).getTime()) < now.getTime(),
+        'past-date': !date.sameDay && moment(now).isAfter(date.mStart),
         'is-today': date.sameDay,
         'is-now': isNow(date),
       }),
